@@ -1,6 +1,6 @@
 # Fantasy Tools
 
-Our fantasy basketball league moved from ESPN to Yahoo. Yahoo doesn't seem to offer as much data as ESPN did on players. One of the obvious metrics that are important for determining ideal fantasy lineups is the number of games scheduled for each player each week. This data point is not readily available in the Yahoo fantasy interface. Manually finding the number of games each player on a team has scheduled has proven to tedious.
+Our fantasy basketball league moved from ESPN to Yahoo. Yahoo doesn't seem to offer as much data on players as ESPN did. One of the missing metrics that I found to be of particular importantance in determining ideal fantasy lineups was the number of games scheduled for each player each week. Manually finding this number for each player has proven very tedious.
 
 YahooBballFantasy.py will seek to automate the process. Having this information should provide a significant advantage over lesser informed leaguemates.
 
