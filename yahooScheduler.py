@@ -88,7 +88,7 @@ def GetMyTeamData():
     time.sleep(2)
 
     passField = driver.find_element_by_id('login-passwd')
-    passField.send_keys('JpVWzUU5gEaApiy')
+    passField.send_keys('1JpVWzUU5gEaApiy!')
     passButton = driver.find_element_by_id('login-signin')
     passButton.click()
 
