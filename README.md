@@ -12,6 +12,8 @@ Our fantasy basketball league moved from ESPN to Yahoo. Yahoo doesn't seem to of
 
 `yahooScheduler.py` combines YahooBballFantasy.py and Scheduler.py into a single py file making each a function, so don't waste your time with them unless you're trying to do your own thing.
 
+`teamScanner.py` creates CSVs for other leaguemates team.
+
 Yes, I'm aware that these naming conventions are confusing.
 
 # Main Process To-Do List
@@ -24,7 +26,7 @@ Yes, I'm aware that these naming conventions are confusing.
 - [X] Search for resource that lists team scheudle by week
 - [X] Use resource to find games per week
 - [X] Export games per week to CSV by player
-- [ ] Combine yahoo scrape and scheduler into functions in single py file
+- [X] Combine yahoo scrape and scheduler into functions in single py file
 - [ ] Figure out method for projecting pts per week
 - [X] Create algoritim for determining which week of regular season it is
 - [ ] Prompt user for which data they want
@@ -42,7 +44,7 @@ Yes, I'm aware that these naming conventions are confusing.
 
 ### Yahoo opponent games per week and pts projection
 
-- [ ] Login to yahoo league page
-- [ ] Navigate to each leaguemate's team
-- [ ] Scrape player data, team, and pos
-- [ ] Export player, team, pos to CSV
+- [X] Login to yahoo league page
+- [X] Navigate to each leaguemate's team
+- [X] Scrape player data, team, and pos
+- [X] Export player, team, pos to CSV
