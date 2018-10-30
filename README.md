@@ -6,11 +6,13 @@ Our fantasy basketball league moved from ESPN to Yahoo. Yahoo doesn't seem to of
 
 ### Package Description
 
-`YahooBballFantasy.py` logs into your Yahoo account team page and scrapes your team's info to a CSB.
+`YahooBballFantasy.py` logs into your Yahoo account team page and scrapes your team's info to a CSV.
 
 `Scheduler.py` reads the team names from the CSVs and creates a CSV with # of games for that respective week.
 
-`yahooScheduler.py` combines YahooBballFantasy.py and Scheduler.py into a single py file making each a function (yes, I'm aware that these naming conventions are confusing).
+`yahooScheduler.py` combines YahooBballFantasy.py and Scheduler.py into a single py file making each a function, so don't waste your time with them unless you're trying to do your own thing.
+
+Yes, I'm aware that these naming conventions are confusing.
 
 # Main Process To-Do List
 
