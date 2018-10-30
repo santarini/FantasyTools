@@ -16,7 +16,7 @@ Having this information should provide a significant advantage over lesser infor
 - [X] Export games per week to CSV by player
 - [ ] Combine yahoo scrape and scheduler into functions in single py file
 - [ ] Figure out method for projecting pts per week
-- [ ] Figure out algoritim for determining which week of regular season it is
+- [ ] Create algoritim for determining which week of regular season it is
 
 ### Yahoo free agent games per week and pts projection
 
