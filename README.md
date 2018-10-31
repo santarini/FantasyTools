@@ -32,6 +32,18 @@ Yes, I'm aware that these naming conventions are confusing.
 - [ ] Prompt user for which data they want
 - [ ] Print respective week on CSV output
 - [ ] Modify operation to use single CSV
+- [ ] Go to "opponenet" tab and add schedule/oppnenet data to csv scrape
+
+
+### Points estimation
+
+- Look at all games player did last season
+- Figure out seasonal totals and averages
+- Look at averages and totals over careers looking for trends
+- Look at averages and totals against team (home and away)
+- Look at Vegas'point totals and figure out what % should be attributable to player
+
+- [ ] Go to player basketball-reference page and pull last season's stats
 
 # Other Ideas
 
