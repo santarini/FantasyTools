@@ -60,3 +60,5 @@ Yes, I'm aware that these naming conventions are confusing.
 - [X] Navigate to each leaguemate's team
 - [X] Scrape player data, team, and pos
 - [X] Export player, team, pos to CSV
+
+https://www.basketball-reference.com/players/j/jamesle01/gamelog/2018/
