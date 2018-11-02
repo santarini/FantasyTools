@@ -69,6 +69,23 @@ teamDict = {
     "Was": ["WAS", 29]
     }
 
+#def DayOfTheWeek():                
+#figure out today and figure out when the first day of this week
+today = datetime.today().weekday()
+beginWeek = datetime.today() - timedelta(days=(today)) #if week starts with Mon: days=today, if week starts with Sun: days=today+1
+
+#make a list of each day this week
+
+datesInWeek =[]
+
+for x in range (0, 7):
+    datesInWeek.append((beginWeek + timedelta(days = x)).strftime('%Y-%m-%d'))
+
+#figure out what week it is
+for x in range(0, len(NBACalendarList)):
+    if any(y == NBACalendarList[x][0] for y in datesInWeek):
+        thisWeek = NBACalendarList[x][1]
+
 
 def GetMyTeamData():
     #surfacebook and work computer webdriver path
@@ -85,10 +102,10 @@ def GetMyTeamData():
     loginButton = driver.find_element_by_id('login-signin')
     loginButton.click()
 
-    time.sleep(2)
+    time.sleep(3)
 
     passField = driver.find_element_by_id('login-passwd')
-    passField.send_keys('1JpVWzUU5gEaApiy!')
+    passField.send_keys('JpVWzUU5gEaApiy')
     passButton = driver.find_element_by_id('login-signin')
     passButton.click()
 
@@ -100,7 +117,7 @@ def GetMyTeamData():
 
     tableBody = teamTable.find("tbody")
 
-    with open('players.csv', 'a') as csvfile:
+    with open('myTeam.csv', 'a') as csvfile:
         fieldnames = ['Player',
                       'Team',
                       'Position'
@@ -121,9 +138,7 @@ def GetMyTeamData():
         
     driver.quit()
 
-def GetTeamSchedule():
-
-
+def GetTeamSchedule(weekNo=thisWeek):
     teamSchedule = []
 
     #get schedule data
@@ -136,17 +151,13 @@ def GetTeamSchedule():
     #team row
     teamRow = dataTable.findAll('tr')[3]
 
-    #set week no
-    #hint: week 1 = 4th tr
-    weekNo = 3
-
     #get number of games this week by team
     weekRow = dataTable.findAll('tr')[3 + weekNo]
 
     for row in weekRow.findAll('td')[4:]:
         teamSchedule.append(row.text)
 
-    with open('thisweek.csv', 'a') as csvfile:
+    with open('thisWeek.csv', 'a') as csvfile:
         fieldnames = ['Player',
                       'Team',
                       'Position',
@@ -155,7 +166,7 @@ def GetTeamSchedule():
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames, lineterminator = '\n')
         writer.writeheader()
 
-        with open("players.csv") as csvfile:
+        with open("myTeam.csv") as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
                 player = (row['Player'])
@@ -172,25 +183,6 @@ def GetTeamSchedule():
                                  'Position': position,
                                  'Games': teamSchedule[gamesScehduled]
                                  })
-
-def DayOfTheWeek():                
-    #figure out today and figure out when the first day of this week
-    today = datetime.today().weekday()
-    beginWeek = datetime.today() - timedelta(days=(today)) #if week starts with Mon: days=today, if week starts with Sun: days=today+1
-
-    #make a list of each day this week
-
-    datesInWeek =[]
-
-    for x in range (0, 7):
-        datesInWeek.append((beginWeek + timedelta(days = x)).strftime('%Y-%m-%d'))
-
-    #figure out what week it is
-    for x in range(0, len(NBACalendarList)):
-        if any(y == NBACalendarList[x][0] for y in datesInWeek):
-            thisWeek = NBACalendarList[x][1]
-
-    print(thisWeek)
 
 
 
