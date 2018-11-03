@@ -16,8 +16,21 @@ for tableRow in playerDataTable.findAll('tr')[1:]:
         if "thead" in tableRow.get('class'):
             continue
     except TypeError:
-        print(tableRow.findAll('td')[1])
-
+        rank = (tableRow.findAll('td')[0])
+        date = (tableRow.findAll('td')[2])
+        opponent = (tableRow.findAll('td')[6])
+        minsPlayed = (tableRow.findAll('td')[9])
+        fgm = (tableRow.findAll('td')[10])
+        fga = (tableRow.findAll('td')[11])
+        threePt = (tableRow.findAll('td')[13])
+        thrrePtAtm = (tableRow.findAll('td')[14])
+        freeThrow =(tableRow.findAll('td')[16])
+        freeThrowAtm =(tableRow.findAll('td')[17])
+        reb =(tableRow.findAll('td')[21])
+        assts =(tableRow.findAll('td')[22])
+        stls = (tableRow.findAll('td')[23])
+        blcks = (tableRow.findAll('td')[24])
+        turnOvs = (tableRow.findAll('td')[25])        
 
             
 
