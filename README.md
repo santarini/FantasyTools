@@ -14,6 +14,8 @@ Our fantasy basketball league moved from ESPN to Yahoo. Yahoo doesn't seem to of
 
 `teamScanner.py` creates CSVs for other leaguemates team.
 
+`playerData.py` gets stats of each player.
+
 Yes, I'm aware that these naming conventions are confusing.
 
 # Main Process To-Do List
@@ -39,11 +41,19 @@ Yes, I'm aware that these naming conventions are confusing.
 
 - Look at all games player did last season
 - Figure out seasonal totals and averages
-- Look at averages and totals over careers looking for trends
-- Look at averages and totals against team (home and away)
-- Look at Vegas'point totals and figure out what % should be attributable to player
+- Look at averages and totals over seasons looking for trends
+- Look at averages and totals against teams (home and away)
+- Look at Vegas' point totals and figure out what % should be attributable to player
 
-- [ ] Go to player basketball-reference page and pull last season's stats
+- At what point in the season is lebron scoring the most
+- Does he peak?
+- At what point does lebron fould or turnover the most
+- Is there an opponenet who he fouls and turnsover the most
+- Look at higest and lowest shot percentages
+
+- [x] Go to player basketball-reference page and pull last season's stats
+- [x] Push to CSV
+- [ ] Get each player's bsktball-ref url path
 
 # Other Ideas
 
