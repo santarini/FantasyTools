@@ -29,6 +29,7 @@ Yes, I'm aware that these naming conventions are confusing.
 - [X] Use resource to find games per week
 - [X] Export games per week to CSV by player
 - [X] Combine yahoo scrape and scheduler into functions in single py file
+- [ ] Get opponenets for week
 - [ ] Figure out method for projecting pts per week
 - [X] Create algoritim for determining which week of regular season it is
 - [ ] Prompt user for which data they want
