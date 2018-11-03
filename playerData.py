@@ -5,10 +5,12 @@ from bs4 import BeautifulSoup as bs
 import time
 import csv
 
-response = requests.get('https://www.basketball-reference.com/players/j/jamesle01/gamelog/2018/')
+response = requests.get('https://www.basketball-reference.com/players/j/jamesle01/gamelog/2017/')
 soup = bs(response.text, 'lxml')
 
-playerDataTable = soup.find("table", {"id": "pgl_basic"})
+playerDataTable = soup.find('table', {'id': 'pgl_basic'})
+playerDataTableBody = playerDataTable.find('tbody')
+
 
 with open('myPlayer.csv', 'a') as csvfile:
     fieldnames = ["Season Game",
@@ -17,7 +19,7 @@ with open('myPlayer.csv', 'a') as csvfile:
                   "at",
                   "Opponent",
                   "winLoss",
-                  "Minutes Played",
+                  "Seconds Played",
                   "FG",
                   "FGA",
                   "FG%",
@@ -37,36 +39,38 @@ with open('myPlayer.csv', 'a') as csvfile:
                   ]
     writer = csv.DictWriter(csvfile, fieldnames=fieldnames, lineterminator = '\n')
     writer.writeheader()
-    
-    for tableRow in playerDataTable.findAll('tr')[1:]:
-        try: 
-            if "thead" in tableRow.get('class'):
-                continue
-        except TypeError:
-            rank = (tableRow.findAll('td')[0])
-            date = (tableRow.findAll('td')[1])
-            team =  (tableRow.findAll('td')[3])
-            at =  (tableRow.findAll('td')[4])            
-            opponent = (tableRow.findAll('td')[5])
-            winLoss =  (tableRow.findAll('td')[6].get('csk'))    
-            minsPlayed = (tableRow.findAll('td')[8])
-            fgm = (tableRow.findAll('td')[9])
-            fga = (tableRow.findAll('td')[10])
-            fgPercent = (tableRow.findAll('td')[11])
-            threePt = (tableRow.findAll('td')[12])
-            threePtAtm = (tableRow.findAll('td')[13])
-            threePercent = (tableRow.findAll('td')[14])
-            freeThrow = (tableRow.findAll('td')[15])
-            freeThrowAtm = (tableRow.findAll('td')[16])
-            freeThrowPercent = (tableRow.findAll('td')[17])
-            reb =(tableRow.findAll('td')[20])
-            assts =(tableRow.findAll('td')[21])
-            stls = (tableRow.findAll('td')[22])
-            blcks = (tableRow.findAll('td')[23])
-            turnOvs = (tableRow.findAll('td')[24])
-            personalFouls = (tableRow.findAll('td')[25])
-            pts = (tableRow.findAll('td')[26])
-        
+
+    for tableRow in playerDataTableBody.findAll('tr'):
+        if tableRow.has_attr('class'):
+            print('Header')
+            continue
+        if tableRow.findAll('td')[7].get('data-stat') == 'reason':
+            print('Reason')
+        else:
+            rank = tableRow.find('th', {'data-stat' : 'ranker'})
+            date = tableRow.find('td', {'data-stat' : 'date_game'})
+            team = tableRow.find('td', {'data-stat' : 'team_id'})
+            at = tableRow.find('td', {'data-stat' : 'game_location'})         
+            opponent = tableRow.find('td', {'data-stat' : 'opp_id'}) 
+            winLoss = tableRow.find('td', {'data-stat' : 'game_result'}).get('csk')   
+            secsPlayed = tableRow.find('td', {'data-stat' : 'mp'}).get('csk')
+            fgm = tableRow.find('td', {'data-stat' : 'fg'})
+            fga = tableRow.find('td', {'data-stat' : 'fga'})
+            fgPercent = tableRow.find('td', {'data-stat' : 'fg_pct'})
+            threePt = tableRow.find('td', {'data-stat' : 'fg3'})
+            threePtAtm = tableRow.find('td', {'data-stat' : 'fg3a'})
+            threePercent = tableRow.find('td', {'data-stat' : 'fg3_pct'})
+            freeThrow = tableRow.find('td', {'data-stat' : 'ft'})
+            freeThrowAtm = tableRow.find('td', {'data-stat' : 'fta'})
+            freeThrowPercent = tableRow.find('td', {'data-stat' : 'ft_pct'})
+            reb = tableRow.find('td', {'data-stat' : 'trb'})
+            assts = tableRow.find('td', {'data-stat' : 'ast'})
+            stls = tableRow.find('td', {'data-stat' : 'stl'})
+            blcks = tableRow.find('td', {'data-stat' : 'blk'})
+            turnOvs = tableRow.find('td', {'data-stat' : 'tov'})
+            personalFouls = tableRow.find('td', {'data-stat' : 'pf'})
+            pts = tableRow.find('td', {'data-stat' : 'pts'})
+
             writer.writerow({
                 "Season Game":rank.text,
                 "Date":date.text,
@@ -74,13 +78,13 @@ with open('myPlayer.csv', 'a') as csvfile:
                 "at": at.text,
                 "Opponent":opponent.text,
                 "winLoss": winLoss,
-                "Minutes Played":minsPlayed.text,
+                "Seconds Played":secsPlayed,
                 "FG":fgm.text,
                 "FGA":fga.text,
                 "FG%": fgPercent.text,
                 "3P":threePt.text,
                 "3A":threePtAtm.text,
-                "3%":int(threePt.txt)/int(threePtAtm.text),
+                "3%":threePercent.text,
                 "FT":freeThrow.text,
                 "FTA":freeThrowAtm.text,
                 "FT%":freeThrowPercent.text,
@@ -92,10 +96,3 @@ with open('myPlayer.csv', 'a') as csvfile:
                 "PF": personalFouls.text,
                 "PTS":pts.text
                 })
-            
-
-
-
-#8th table : <table class="row_summable sortable stats_table" data-cols-to-freeze="3" id="pgl_basic">
-
-# Skip trs with class thead <tr class="thead">
