@@ -3,35 +3,74 @@
 import requests
 from bs4 import BeautifulSoup as bs
 import time
-
+import csv
 
 response = requests.get('https://www.basketball-reference.com/players/j/jamesle01/gamelog/2018/')
 soup = bs(response.text, 'lxml')
 
-x = 0
-
 playerDataTable = soup.find("table", {"id": "pgl_basic"})
-for tableRow in playerDataTable.findAll('tr')[1:]:
-    try: 
-        if "thead" in tableRow.get('class'):
-            continue
-    except TypeError:
-        rank = (tableRow.findAll('td')[0])
-        date = (tableRow.findAll('td')[2])
-        opponent = (tableRow.findAll('td')[6])
-        minsPlayed = (tableRow.findAll('td')[9])
-        fgm = (tableRow.findAll('td')[10])
-        fga = (tableRow.findAll('td')[11])
-        threePt = (tableRow.findAll('td')[13])
-        thrrePtAtm = (tableRow.findAll('td')[14])
-        freeThrow =(tableRow.findAll('td')[16])
-        freeThrowAtm =(tableRow.findAll('td')[17])
-        reb =(tableRow.findAll('td')[21])
-        assts =(tableRow.findAll('td')[22])
-        stls = (tableRow.findAll('td')[23])
-        blcks = (tableRow.findAll('td')[24])
-        turnOvs = (tableRow.findAll('td')[25])        
 
+with open('myPlayer.csv', 'a') as csvfile:
+    fieldnames = ["Season Game",
+                  "Date",
+                  "Opponent",
+                  "Minutes Played",
+                  "FG",
+                  "FGA",
+                  "3P",
+                  "3A",
+                  "FT",
+                  "FTA",
+                  "TRB",
+                  "AST",
+                  "STL",
+                  "BLK",
+                  "TOV",
+                  "PTS"
+                  ]
+    writer = csv.DictWriter(csvfile, fieldnames=fieldnames, lineterminator = '\n')
+    writer.writeheader()
+    
+    for tableRow in playerDataTable.findAll('tr')[1:]:
+        try: 
+            if "thead" in tableRow.get('class'):
+                continue
+        except TypeError:
+            rank = (tableRow.findAll('td')[0])
+            date = (tableRow.findAll('td')[1])
+            opponent = (tableRow.findAll('td')[5])
+            minsPlayed = (tableRow.findAll('td')[8])
+            fgm = (tableRow.findAll('td')[9])
+            fga = (tableRow.findAll('td')[10])
+            threePt = (tableRow.findAll('td')[12])
+            threePtAtm = (tableRow.findAll('td')[13])
+            freeThrow =(tableRow.findAll('td')[15])
+            freeThrowAtm =(tableRow.findAll('td')[16])
+            reb =(tableRow.findAll('td')[20])
+            assts =(tableRow.findAll('td')[21])
+            stls = (tableRow.findAll('td')[22])
+            blcks = (tableRow.findAll('td')[23])
+            turnOvs = (tableRow.findAll('td')[24])
+            pts = (tableRow.findAll('td')[26])
+        
+            writer.writerow({
+                "Season Game":rank.text,
+                "Date":date.text,
+                "Opponent":opponent.text,
+                "Minutes Played":minsPlayed.text,
+                "FG":fgm.text,
+                "FGA":fga.text,
+                "3P":threePt.text,
+                "3A":threePtAtm.text,
+                "FT":freeThrow.text,
+                "FTA":freeThrowAtm.text,
+                "TRB":reb.text,
+                "AST":assts.text,
+                "STL":stls.text,
+                "BLK":blcks.text,
+                "TOV":turnOvs.text,
+                "PTS":pts.text
+                })
             
 
 
