@@ -11,14 +11,15 @@ soup = bs(response.text, 'lxml')
 x = 0
 
 playerDataTable = soup.find("table", {"id": "pgl_basic"})
-for tableRow in playerDataTable.findAll('tr'):
+for tableRow in playerDataTable.findAll('tr')[1:]:
     try: 
         if "thead" in tableRow.get('class'):
             continue
     except TypeError:
-        for row in tableRow:
-            print(row)
-print(x)
+        print(tableRow.findAll('td')[1])
+
+
+            
 
 
 
