@@ -183,36 +183,148 @@ def GetMyTeamData():
                              headerFields[14]:oppSched[14]
                              })
             oppSched.clear()
-    
-
-    #tableBody = teamTable.find('tbody')
-
-##    f = open('yahooData.txt', 'w')
-##    f.write(str(tableBody))
-##    f.close()
-
-##    with open('myTeam.csv', 'a') as csvfile:
-##        fieldnames = ['Player',
-##                      'Team',
-##                      'Position'
-##                      ]
-##        writer = csv.DictWriter(csvfile, fieldnames=fieldnames, lineterminator = '\n')
-##        writer.writeheader()
-##
-##        for row in tableBody.findAll("tr"):
-##            player = row.findAll("a")[1].text
-##            teamAndPos = row.findAll("span")[3].text
-##            team = teamAndPos.split(" - ", 1)[0]
-##            pos = teamAndPos.split(" - ", 1)[1]
-##            writer.writerow({'Player': player,
-##                             #'Team': teamDict["Atl"][0],
-##                             'Team': team,
-##                             'Position': pos
-##                             })
-##        
-##
-###https://basketball.fantasysports.yahoo.com/nba/157752/7/team?&date=2018-11-04
     driver.quit()
+
+def GetFreeAgencyData():
+    #surfacebook and work computer webdriver path
+    driver = webdriver.Firefox()
+
+    #driver.set_window_size(1600, 1600)
+    driver.set_window_position(0, 0)
+    driver.get('https://basketball.fantasysports.yahoo.com/nba/157752/7')
+
+    time.sleep(1)
+
+    loginField = driver.find_element_by_id('login-username')
+    loginField.send_keys('eventh')
+    loginButton = driver.find_element_by_id('login-signin')
+    loginButton.click()
+
+    time.sleep(3)
+
+    passField = driver.find_element_by_id('login-passwd')
+    passField.send_keys('JpVWzUU5gEaApiy')
+    passButton = driver.find_element_by_id('login-signin')
+    passButton.click()
+
+    #get header
+
+    driver.get('https://basketball.fantasysports.yahoo.com/nba/157752/players?status=A&pos=P&cut_type=33&stat1=O_O&myteam=0&sort=R_PO&sdir=1&count=0')
+
+    playerTable = driver.find_element_by_id('players-table').get_attribute('innerHTML')
+    playerTable = playerTable.encode('utf-8')
+    playerTable = bs(playerTable, 'lxml')
+
+    actualTable = playerTable.find('table')
+
+    tableHead = actualTable.find('thead')
+
+    headerFields = []
+
+    trHeader = tableHead.findAll('tr')[1]
+    for th in trHeader.findAll('th')[9:]:
+        headerFields.append(th.text)
+    with open('freeAgentSchedule.csv', 'a') as csvfile:
+        fieldnames = ['Player',
+                      'Team',
+                      'Position',
+                      headerFields[0],
+                      headerFields[1],
+                      headerFields[2],
+                      headerFields[3],
+                      headerFields[4],
+                      headerFields[5],
+                      headerFields[6],
+                      headerFields[7],
+                      headerFields[8],
+                      headerFields[9],
+                      headerFields[10],
+                      headerFields[11],
+                      headerFields[12],
+                      headerFields[13],
+                      headerFields[14]
+                      ]
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames, lineterminator = '\n')
+        writer.writeheader()
+
+    #get 200 most held players
+
+    for x in range(0,200,25):
+        driver.get('https://basketball.fantasysports.yahoo.com/nba/157752/players?status=A&pos=P&cut_type=33&stat1=O_O&myteam=0&sort=R_PO&sdir=1&count=' + str(x))
+
+        playerTable = driver.find_element_by_id('players-table').get_attribute('innerHTML')
+        playerTable = playerTable.encode('utf-8')
+        playerTable = bs(playerTable, 'lxml')
+
+        actualTable = playerTable.find('table')
+
+        tableHead = actualTable.find('thead')
+
+        headerFields = []
+
+        trHeader = tableHead.findAll('tr')[1]
+        for th in trHeader.findAll('th')[9:]:
+            headerFields.append(th.text)
+        with open('freeAgentSchedule.csv', 'a') as csvfile:
+            fieldnames = ['Player',
+                          'Team',
+                          'Position',
+                          headerFields[0],
+                          headerFields[1],
+                          headerFields[2],
+                          headerFields[3],
+                          headerFields[4],
+                          headerFields[5],
+                          headerFields[6],
+                          headerFields[7],
+                          headerFields[8],
+                          headerFields[9],
+                          headerFields[10],
+                          headerFields[11],
+                          headerFields[12],
+                          headerFields[13],
+                          headerFields[14]
+                          ]
+            writer = csv.DictWriter(csvfile, fieldnames=fieldnames, lineterminator = '\n')
+     
+            tableBody = actualTable.find('tbody')
+
+            oppSched = []
+
+            for tr in tableBody.findAll('tr'):
+                secondTD = tr.findAll('td')[1]
+                player = secondTD.findAll("a")[1].text
+                print(player)
+                teamAndPos = secondTD.findAll("span")[2].text
+                print(teamAndPos)
+                team = teamAndPos.split(" - ", 1)[0]
+                print(team)
+                pos = teamAndPos.split(" - ", 1)[1]
+                for td in tr.findAll('td')[9:]:
+                    oppSched.append(td.text)
+                writer.writerow({'Player': player,
+                                 'Team': team,
+                                 'Position': pos,
+                                 headerFields[0]:oppSched[0],
+                                 headerFields[1]:oppSched[1],
+                                 headerFields[2]:oppSched[2],
+                                 headerFields[3]:oppSched[3],
+                                 headerFields[4]:oppSched[4],
+                                 headerFields[5]:oppSched[5],
+                                 headerFields[6]:oppSched[6],
+                                 headerFields[7]:oppSched[7],
+                                 headerFields[8]:oppSched[8],
+                                 headerFields[9]:oppSched[9],
+                                 headerFields[10]:oppSched[10],
+                                 headerFields[11]:oppSched[11],
+                                 headerFields[12]:oppSched[12],
+                                 headerFields[13]:oppSched[13],
+                                 headerFields[14]:oppSched[14]
+                                 })
+                oppSched.clear()
+    driver.quit()
+
+    
 
 def GetTeamSchedule(weekNo=thisWeek):
     teamSchedule = []
@@ -263,5 +375,4 @@ def GetTeamSchedule(weekNo=thisWeek):
 
 
 
-
-    
+GetFreeAgencyData()   

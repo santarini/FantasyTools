@@ -29,14 +29,13 @@ Yes, I'm aware that these naming conventions are confusing.
 - [X] Use resource to find games per week
 - [X] Export games per week to CSV by player
 - [X] Combine yahoo scrape and scheduler into functions in single py file
-- [ ] Get opponenets for week
+- [X] Get opponenets for week
 - [ ] Figure out method for projecting pts per week
 - [X] Create algoritim for determining which week of regular season it is
 - [ ] Prompt user for which data they want
 - [ ] Print respective week on CSV output
 - [ ] Modify operation to use single CSV
 - [ ] Go to "opponenet" tab and add schedule/oppnenet data to csv scrape
-
 
 ### Points estimation
 
@@ -64,6 +63,8 @@ Yes, I'm aware that these naming conventions are confusing.
 - [ ] Navigate to free agency list
 - [ ] Scrape player data, team, and pos
 - [ ] Export player, team, pos to CSV
+
+https://basketball.fantasysports.yahoo.com/nba/157752/players?&sort=AR&sdir=1&status=A&pos=P&stat1=O_O&jsenabled=1
 
 ### Yahoo opponent games per week and pts projection
 
